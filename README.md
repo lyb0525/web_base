@@ -13,7 +13,7 @@
   python manage.py runserver
   ```
 ## 生产环境说明
-1. `uwsgi -s /tmp/uwsgi_label++.sock -w app:app`
+1. `uwsgi -s /tmp/uwsgi++.sock -w app:app`
 2. `killall -HUP nginx`  __OR__ `nginx -s reload`
 
 
