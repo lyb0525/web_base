@@ -1,0 +1,32 @@
+#!/bin/bash
+#to enable code rollback (by `git push -f`):
+#git config receive.denynonfastforwards false
+
+SRC_DIR=/home/app/data/frontend.src
+ROOT_DIR=/home/app/data/frontend
+#mv $ROOT_DIR/static/upload $ROOT_DIR/static/upload.bak
+ 
+GIT_WORK_TREE=$SRC_DIR git checkout -f 2.0
+# if set GIT_WORK_TREE twice, file modification time would be overwritten
+# GIT_WORK_TREE=$ROOT_DIR git checkout -f 2.0
+rm -rf ${ROOT_DIR}.old
+cp -r $SRC_DIR ${ROOT_DIR}.new
+mv $ROOT_DIR ${ROOT_DIR}.old && mv ${ROOT_DIR}.new $ROOT_DIR
+rm -rf $ROOT_DIR/static/upload
+ln -sf /home/data/upload/ $ROOT_DIR/static/upload
+#mv $ROOT_DIR/static/upload.bak $ROOT_DIR/static/upload
+ 
+config_path=$ROOT_DIR/static/js/lib/require/require-config.js
+ 
+for file in $(grep -oP "(?<=[\'\"])([^\'^\"]+\.js)(?=[^\'^\"]*[\'\"])" $config_path); do
+    if [ -f $SRC_DIR/static/js/$file ]; then
+        last_modify=$(date +%m%d%H%M -r $SRC_DIR/static/js/$file)
+        sed -i "s@$file[^\'^\"]*@${file}?_=$last_modify@g" $config_path
+    fi  
+done
+find $ROOT_DIR/static/js -type f -name "*.js" -exec uglifyjs {} -o {} \; </dev/null &>/dev/null & disown
+#exec find . -type f -name "*.js" -exec uglifyjs {} -o {} \; >&- 2>&- &
+#find . -type f -name "*.js" -exec uglifyjs {} -o {} \; |at now
+#nohup find . -type f -name "*.js" -exec uglifyjs {} -o {} \; 2>&1 >/dev/null &
+#echo "finished"
+exit

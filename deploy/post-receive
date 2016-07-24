@@ -1,0 +1,15 @@
+#!/bin/sh
+#to enable rollback (git push -f):
+#git config receive.denynonfastforwards false
+GIT_WORK_TREE=/home/app/www/app git checkout -f 2.0
+cd /home/app/www/app
+# 检查文件权限
+# chown -R www-data:www-data .
+#find . -type f -exec chmod 644 {} \;
+#find . -type d -exec chmod 755 {} \;
+ln -sf /home/app/data/backend/* ./app/
+ln -sf /home/app/data/frontend/static/ ./app/
+ln -sf /home/app/data/frontend/templates/ ./app/
+# reload uwsgi gracefully
+touch /home/app/data/uwsgi_app++.reload
+exit
