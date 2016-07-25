@@ -35,8 +35,8 @@ if [ ${NIGNX_PATH} ]; then
     if [ -f  ${NIGNX_PATH}"sites-enabled/default" ]; then
         sudo rm ${NIGNX_PATH}"sites-enabled/default"
     fi
-    sudo cp deploy/nginx.conf ${NIGNX_PATH}"sites-available/plat_nginx.conf"
-    sudo ln -sf ${NIGNX_PATH}"sites-available/plat_nginx.conf" ${NIGNX_PATH}"sites-enabled/plat_nginx.conf"
+    sudo cp deploy/nginx.conf ${NIGNX_PATH}"sites-available/fyk_nginx.conf"
+    sudo ln -sf ${NIGNX_PATH}"sites-available/fyk_nginx.conf" ${NIGNX_PATH}"sites-enabled/fyk_nginx.conf"
     sudo nginx -s reload
 else
     echo "pass"
