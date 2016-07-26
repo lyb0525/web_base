@@ -10,11 +10,8 @@ manage.py
 *.db
 *.rdb
 *.swp
-static
-templates
+//static
+//templates
 .DS_Store
 mykey.*
-zzcrowd.com.crt
-zzcrowd.com.key
 *.sock
-l_plat_env
