@@ -1,0 +1,17 @@
+flask
+tags
+cscope.*
+backup
+config.py
+manage.py
+*.log
+*.bak
+*.pyc
+*.db
+*.rdb
+*.swp
+//static
+//templates
+.DS_Store
+mykey.*
+*.sock
