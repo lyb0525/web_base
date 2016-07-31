@@ -3,6 +3,7 @@
 import json
 from datetime import date, datetime
 from flask import jsonify
+from .error_code import ErrorCode
 
 
 def success_result(data={}, page={}):
@@ -17,6 +18,16 @@ def error_requests(status_code=440, data={}):
     response = jsonify(data)
     response.status_code = status_code
     return response
+
+def error_result(error=ErrorCode.ERROR_UNKNOWN, data={}):
+    code, desc = error
+    ret = {
+        'code': -code,
+        'desc': desc,
+        'data': data
+    }
+    return jsonify(ret)
+
 
 class MyEncoder(json.JSONEncoder):
     def default(self, obj):
