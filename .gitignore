@@ -3,7 +3,6 @@ tags
 cscope.*
 backup
 config.py
-manage.py
 *.log
 *.bak
 *.pyc

@@ -1,5 +1,8 @@
 # 开发说明
 ## 开发环境搭建
+
+ubuntu 依赖： sudo apt-get install libmysqlclient-dev
+
 1. python运行环境为2.7.9
 2. git clone repo 并 checkout 2.0 分支
 3. `virtualenv flask` 创建virtualenv
